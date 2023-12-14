@@ -24,13 +24,11 @@ width: 100%;
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="Name">Name</label>
-                    <input type="email" class="form-control" id="name" name="name"
-                        placeholder="Enter your name">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone number</label>
-                    <input type="text" class="form-control" id="phone" name="phone"
-                        placeholder="Enter your number">
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your number">
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
@@ -39,14 +37,20 @@ width: 100%;
                 </div>
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email"
-                        placeholder="Enter your Email">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email">
                 </div>
-                <div class="form-group">
-                    <label for="problem">problem</label>
-                    <textarea class="form-control" id="problem"  name="problem" rows="3"></textarea>
-                </div>
-                <button class="btn btn-primary">submit</button>
+                <div>
+                    <label for="problemCategory">Problem is related to:</label>
+                    <select id="problemCategory" name="selected">
+                        <option value="electric">Electric</option>
+                        <option value="plumber">Plumber</option>
+                        <option  selected value="other">Other</option>
+                    </select>
+                    <div class="form-group">
+                        <label for="problem">Describe your problem in short.</label>
+                        <textarea class="form-control" id="problem" name="problem" rows="3"></textarea>
+                    </div>
+                    <button class="btn btn-primary">submit</button>
             </form>
         </div>
     </div>

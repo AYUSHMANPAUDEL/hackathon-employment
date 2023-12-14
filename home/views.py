@@ -11,7 +11,8 @@ def request(request):
         address=request.POST.get('address')
         email=request.POST.get('email')
         problem=request.POST.get('problem')
-        Requests=Request(name=name,phone=phone,address=address, email=email ,problem=problem ,date=datetime.today())
+        selected=request.POST.get('selected')
+        Requests=Request(name=name,phone=phone,address=address, email=email ,problem=problem , selected=selected ,date=datetime.today())
         Requests.save()
     return render(request , 'request.html')
 
