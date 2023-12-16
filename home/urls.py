@@ -9,4 +9,5 @@ urlpatterns = [
     path('formadded',views.formadded , name='formadded'),
     path('payment',views.payment , name='payment'),
     path('login',views.login , name='login'),
+    path('work',views.work , name='work')
 ]

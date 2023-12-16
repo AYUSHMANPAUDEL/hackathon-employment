@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}work{% endblock title %}
+{% block style %}    
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    #selectContainer {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 999;
+    }
+
+    #selectOption {
+        padding: 5px;
+    }
+
+    #filteredData {
+        margin-top: 50px; /* Adjust this margin to leave space for the select container */
+    }
+
+
+{% endblock style %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+{% endblock script %}
+
+{% block body %}
+<div id="selectContainer">
+    <label for="selectOption">Select Option:</label>
+    <select id="selectOption">
+        <option value="">All</option>
+        <option value="electric">Electric</option>
+        <option value="plumber">Plumber</option>
+        <option value="other">Other</option>
+    </select>
+</div>
+
+<div id="filteredData">
+    <!-- Display filtered data here -->
+    {% for item in data %}
+        {{item.problem}}
+    {% endfor %}
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#selectOption').on('change', function() {
+            var selectedOption = $(this).val();
+            var currentUrl = window.location.href;
+            
+            // Remove existing 'selected_option' parameter, if any
+            currentUrl = currentUrl.replace(/[\?&]selected_option=[^\?&]+/, '');
+
+            // Append the selected option to the current URL
+            var separator = currentUrl.indexOf('?') !== -1 ? '&' : '?';
+            var newUrl = currentUrl + separator + 'selected_option=' + selectedOption;
+
+            window.location.href = newUrl;
+        });
+    });
+</script>
+{% endblock body %}

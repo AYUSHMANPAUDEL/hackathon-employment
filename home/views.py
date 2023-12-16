@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse , redirect  
 from datetime import datetime
 from home.models import Request
+from django.views.generic import ListView
 # Create your views here.
 def home(request):
     return render(request , 'index.html')
@@ -37,3 +38,17 @@ def login(request):
         return render(request , 'index.html')
     else:
         return render(request , 'login.html')
+
+def work(request):
+    selected_option = request.GET.get('selected_option', '')
+    
+    if selected_option == 'electric':
+        data = Request.objects.filter(selected='electric').order_by('date')
+    elif selected_option == 'plumber':
+        data = Request.objects.filter(selected='plumber').order_by('date')
+    elif selected_option == 'other':
+        data = Request.objects.filter(selected='other').order_by('date')
+    else:
+        data = Request.objects.all()
+
+    return render(request, 'work.html', {'data': data, 'selected_option': selected_option})
