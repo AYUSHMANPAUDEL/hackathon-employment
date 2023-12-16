@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{item.selected}}detail{% endblock title %}
+{% block style %}{% endblock style %}
+{% block body %}
+
+<div class="container mt-5">
+    <div class="card border-0 pb-3">
+        <div class="row">
+            <div class="col-12 col-sm-12">
+                <div class="card-body p-0">
+                    <div class="text-center">
+                        <h1 class="mt-0 fs-7 fw-bold">{{ item.selected }}</h1>
+                    </div>
+                    <p class="m-0">{{ item.problem }}</p>
+                    <!-- Other details as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

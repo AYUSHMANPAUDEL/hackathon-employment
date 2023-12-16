@@ -24,15 +24,16 @@ margin-top: 50px; /* Adjust this margin to leave space for the select container 
 }
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(3, 1fr); /* Maximum of 3 columns in a row */
+    grid-auto-rows: 200px; /* Set a fixed height of 200 pixels for each row */
+    grid-gap: 10px;
+    padding: 0;
 }
-
 .grid-item {
     border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
+    padding: 20px;
+    text-align: left;
+
 }
 
 {% endblock style %}
@@ -45,10 +46,10 @@ margin-top: 50px; /* Adjust this margin to leave space for the select container 
 <div id="selectContainer">
     <label for="selectOption">Select Option:</label>
     <select id="selectOption">
-        <option value="">All</option>
-        <option value="electric">Electric</option>
-        <option value="plumber">Plumber</option>
-        <option value="other">Other</option>
+        <option value="All"{% if selected_option == 'All' %}selected{% endif %}>All</option>
+        <option value="electric"{% if selected_option == 'electric' %}selected{% endif %}>Electric</option>
+        <option value="plumber"{% if selected_option == 'plumber' %}selected{% endif %}>Plumber</option>
+        <option value="other"{% if selected_option == 'other' %}selected{% endif %}>Other</option>
     </select>
 </div>
 
@@ -57,14 +58,17 @@ margin-top: 50px; /* Adjust this margin to leave space for the select container 
     <div class="grid-container">
         <!-- Loop through videos and display each in a grid item -->
         {% for item in data %}
-            <a href="" class="text-decoration-none">
+            <a href="{% url 'item_detail' item.id %}" class="text-decoration-none">
                 <div class="grid-item m-0">
-                    <div class="card border-0 pb-3 pb-sm">
+                    <div class="card border-0 pb-3">
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-12 col-sm-12">
                                 <div class="card-body p-0">
-                                <div class=" pb-2 text-body">{{item.name}}</div>
-                
+                                   <div class=" text-center">
+                                    <h1 class="mt-0 fs-7 fw-bold">{{item.selected}}</h1>
+                                   </div>
+                                <p class="m-0">The problem is..</p>
+                                <div class="text-muted fs-5">{{item.problem|truncatechars:20}}</div>
                                 </div>
                             </div>
                         </div>
