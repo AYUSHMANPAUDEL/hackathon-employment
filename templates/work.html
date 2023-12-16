@@ -1,27 +1,39 @@
 {% extends "base.html" %}
 {% block title %}work{% endblock title %}
-{% block style %}    
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-    }
+{% block style %}
+body {
+margin: 0;
+padding: 0;
+font-family: Arial, sans-serif;
+}
 
-    #selectContainer {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        z-index: 999;
-    }
+#selectContainer {
+position: fixed;
+top: 10px;
+right: 10px;
+z-index: 999;
+}
 
-    #selectOption {
-        padding: 5px;
-    }
+#selectOption {
+padding: 5px;
+}
 
-    #filteredData {
-        margin-top: 50px; /* Adjust this margin to leave space for the select container */
-    }
+.container {
+margin-top: 50px; /* Adjust this margin to leave space for the select container */
 
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+.grid-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
 
 {% endblock style %}
 
@@ -40,19 +52,34 @@
     </select>
 </div>
 
-<div id="filteredData">
-    <!-- Display filtered data here -->
-    {% for item in data %}
-        {{item.problem}}
-    {% endfor %}
-</div>
 
+<div class="container mt-5">
+    <div class="grid-container">
+        <!-- Loop through videos and display each in a grid item -->
+        {% for item in data %}
+            <a href="" class="text-decoration-none">
+                <div class="grid-item m-0">
+                    <div class="card border-0 pb-3 pb-sm">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="card-body p-0">
+                                <div class=" pb-2 text-body">{{item.name}}</div>
+                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
 <script>
-    $(document).ready(function() {
-        $('#selectOption').on('change', function() {
+    $(document).ready(function () {
+        $('#selectOption').on('change', function () {
             var selectedOption = $(this).val();
             var currentUrl = window.location.href;
-            
+
             // Remove existing 'selected_option' parameter, if any
             currentUrl = currentUrl.replace(/[\?&]selected_option=[^\?&]+/, '');
 
