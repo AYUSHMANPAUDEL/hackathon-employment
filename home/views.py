@@ -35,3 +35,6 @@ def login_page(request):
 
 def home_page(request):
     return render(request,'home.html')
+
+def go(request):
+    return redirect("/home")

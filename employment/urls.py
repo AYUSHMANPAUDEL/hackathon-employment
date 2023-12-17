@@ -21,3 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
 ]
+
+admin.site.site_header = "JobPro Admin"
+admin.site.site_title = "JobPro Admin Panel"
+admin.site.index_title = "JobPro Customization"
