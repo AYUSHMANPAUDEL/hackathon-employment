@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}work{% endblock title %}
+{% block style %}
+body {
+margin: 0;
+padding: 0;
+font-family: Arial, sans-serif;
+}
+
+#selectContainer {
+position: fixed;
+top: 10px;
+right: 10px;
+z-index: 999;
+}
+
+#selectOption {
+padding: 5px;
+}
+
+.container {
+margin-top: 50px; /* Adjust this margin to leave space for the select container */
+
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Maximum of 3 columns in a row */
+    grid-auto-rows: 200px; /* Set a fixed height of 200 pixels for each row */
+    grid-gap: 10px;
+    padding: 0;
+}
+.grid-item {
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: left;
+
+}
+
+{% endblock style %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+{% endblock script %}
+
+{% block body %}
+<div id="selectContainer">
+    <label for="selectOption">Select Option:</label>
+    <select id="selectOption">
+        <option value="All"{% if selected_option == 'All' %}selected{% endif %}>All</option>
+        <option value="electric"{% if selected_option == 'electric' %}selected{% endif %}>Electric</option>
+        <option value="plumber"{% if selected_option == 'plumber' %}selected{% endif %}>Plumber</option>
+        <option value="other"{% if selected_option == 'other' %}selected{% endif %}>Other</option>
+    </select>
+</div>
+
+
+<div class="container mt-5">
+    <div class="grid-container">
+        <!-- Loop through videos and display each in a grid item -->
+        {% for item in data %}
+            <a href="{% url 'item_detail' item.id %}" class="text-decoration-none">
+                <div class="grid-item m-0">
+                    <div class="card border-0 pb-3">
+                        <div class="row">
+                            <div class="col-12 col-sm-12">
+                                <div class="card-body p-0">
+                                   <div class=" text-center">
+                                    <h1 class="mt-0 fs-7 fw-bold">{{item.selected}}</h1>
+                                   </div>
+                                <p class="m-0">The problem is..</p>
+                                <div class="text-muted fs-5">{{item.problem|truncatechars:20}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#selectOption').on('change', function () {
+            var selectedOption = $(this).val();
+            var currentUrl = window.location.href;
+
+            // Remove existing 'selected_option' parameter, if any
+            currentUrl = currentUrl.replace(/[\?&]selected_option=[^\?&]+/, '');
+
+            // Append the selected option to the current URL
+            var separator = currentUrl.indexOf('?') !== -1 ? '&' : '?';
+            var newUrl = currentUrl + separator + 'selected_option=' + selectedOption;
+
+            window.location.href = newUrl;
+        });
+    });
+</script>
+{% endblock body %}
