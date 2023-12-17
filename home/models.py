@@ -19,3 +19,4 @@ class Request(models.Model):
     selected=models.CharField( max_length=50, null=True)
     problem=models.TextField()
     date=models.DateField()
+    accepted_by = models.CharField(max_length=50, blank=True, null=True)
