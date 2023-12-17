@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse , redirect
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate , login
+from django.contrib.auth import authenticate , login , logout
 # Create your views here.
 def singup_page(request):
     if request.method == "POST":
@@ -28,10 +28,16 @@ def login_page(request):
         user=authenticate(request,username=user_name,password=pass1)
         if user is not None :
             login(request,user)
-            return render(request,'home.html')
+            return redirect('/home/')
         else:
             messages.warning(request, "Username or Password is wrong")
       return render(request , 'login.html')
 
 def home_page(request):
-    return render(request,'home.html')
+    if request.user.is_authenticated:
+        return render(request,'apphome.html')
+    return redirect('/login/')
+
+def logout_page(request):
+    logout(request)
+    return redirect("/login/")
