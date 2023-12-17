@@ -3,10 +3,10 @@ from django.urls import path
 from home import views
 from home.views import work, item_detail
 urlpatterns = [
+    path('',views.home , name='home'),
     path('register/',views.singup_page , name='register'),
     path('login/',views.login_page , name='login'),
     path('home/',views.login_page , name='home'),
-    path('',views.home , name='home'),
     path('home/',views.home , name='home'),
     path('request',views.request , name='request'),
     path('formadded',views.formadded , name='formadded'),
