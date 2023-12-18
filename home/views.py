@@ -38,3 +38,6 @@ def home_page(request):
 
 def go(request):
     return redirect("/home")
+
+def beworker(request):
+    return render(request,"beworker.html")
