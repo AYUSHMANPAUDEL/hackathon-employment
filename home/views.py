@@ -3,6 +3,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login 
+import uuid
 # Create your views here.
 def singup_page(request):
     if request.method == "POST":
@@ -41,9 +42,10 @@ from home.models import Request
 from django.views.generic import ListView
 # Create your views here.
 def home(request):
-    return render(request , 'about.html')
+    return render(request , 'home.html')
 def request(request):
     if request.method=="POST":
+        
         name=request.POST.get('name')
         phone=request.POST.get('phone')
         address=request.POST.get('address')
@@ -77,21 +79,28 @@ def login(request):
         return render(request , 'login.html')
 # for worker end
 def work(request):
+
     selected_option = request.GET.get('selected_option', '')
     
-    if selected_option == 'electric':
-        data = Request.objects.filter(selected='electric').order_by('date')
-    elif selected_option == 'plumber':
-        data = Request.objects.filter(selected='plumber').order_by('date')
-    elif selected_option == 'other':
-        data = Request.objects.filter(selected='other').order_by('date')
-    elif selected_option == 'All':
-        data = Request.objects.all()
-    else:
-        data = Request.objects.all()
- 
+    # Get all requests where is_accepted is False and order by date
+    data = Request.objects.filter(is_accepted=False).order_by('date')
+
+    # Further filter by request_type if selected_option is provided
+    if selected_option:
+        if selected_option == 'electric':
+            data = data.filter(selected='electric')
+        elif selected_option == 'plumber':
+            data = data.filter(selected='plumber')
+        elif selected_option == 'other':
+            data = data.filter(selected='other')
 
     return render(request, 'work.html', {'data': data, 'selected_option': selected_option})
 def item_detail(request, item_id):
     item = get_object_or_404(Request, id=item_id)
+    service_request = Request.objects.get(pk=item_id)
+    service_request.accepted_by = request.user
+    service_request.is_accepted = True
+    service_request.accepted_date = datetime.today()
+
+    service_request.save()
     return render(request, 'item_detail.html', {'item': item})

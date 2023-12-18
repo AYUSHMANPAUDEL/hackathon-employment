@@ -13,5 +13,6 @@ urlpatterns = [
     path('payment',views.payment , name='payment'),
     path('login',views.login , name='login'),
     path('work',views.work , name='work'),
-    path('item/<int:item_id>/', item_detail, name='item_detail')
+    path('item/<int:item_id>/', item_detail, name='item_detail'),
+    
 ]
