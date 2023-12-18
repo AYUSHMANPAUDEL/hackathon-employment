@@ -1,7 +1,7 @@
 from django.db import models
 from django import forms
 class WorkerStat(models.Model):
-    user_name = models.CharField(max_length=40,default="")
+    worker_user_name = models.CharField(max_length=40,default="",unique="True")
     worker_email=models.EmailField(primary_key=True)
     verified = models.BooleanField(default=False)
     WORK_AREAS = [
@@ -37,8 +37,18 @@ class WorkerStat(models.Model):
     ('HI', 'Home Inspection Services'),
     ]
     workarea = models.CharField(max_length=30, choices=WORK_AREAS,default="")
-    citizenship_image = models.ImageField(upload_to="media/",default="")
-    certificate_image = models.ImageField(upload_to="media/" ,default="")
+    citizenship_image = models.ImageField(upload_to="static/media/citizen",default="")
+    certificate_image = models.ImageField(upload_to="static/media/certificate" ,default="")
 
     def __str__(self):
         return self.worker_email 
+    
+class UserData(models.Model):
+    user_name = models.CharField(max_length=40,default="")
+    user_email=models.EmailField(primary_key=True)
+    first_name = models.CharField(max_length=20,default="")
+    last_name = models.CharField(max_length=20,default="")
+    user_image = models.ImageField(upload_to="static/media/userimage" ,default="")
+    def __str__(self):
+        return self.user_email
+    
