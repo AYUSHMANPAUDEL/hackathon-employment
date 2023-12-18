@@ -9,7 +9,7 @@
     </div>
     <div class="request">
         <div class="container">
-            <form method="POST" action=""">
+            <form method="POST" action="{% url 'item_detail' item.id %}"">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="Name">Name</label>
@@ -35,7 +35,7 @@
                         <label for="problem">Describe your problem in short.</label>
                         <textarea class="form-control" id="problem" name="problem" rows="3" readonly>{{ item.problem }}</textarea>
                     </div>
-                    <button class="btn btn-primary">Accpt</button>
+                    <button class="btn btn-primary">Accept</button>
             </form>
         </div>
     </div>
