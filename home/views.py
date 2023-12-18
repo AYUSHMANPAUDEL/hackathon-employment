@@ -3,6 +3,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate , login
+from home.models import UserData,WorkerStat
 # Create your views here.
 def singup_page(request):
     if request.method == "POST":
@@ -34,7 +35,7 @@ def login_page(request):
       return render(request , 'login.html')
 
 def home_page(request):
-    return render(request,'home.html')
+    return render(request,"home.html")
 
 def go(request):
     return redirect("/home")
