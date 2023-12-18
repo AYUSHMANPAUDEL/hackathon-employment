@@ -1,7 +1,8 @@
 from django.db import models
 from django import forms
 class WorkerStat(models.Model):
-    worker_email=models.EmailField()
+    user_name = models.CharField(max_length=40,default="")
+    worker_email=models.EmailField(primary_key=True)
     verified = models.BooleanField(default=False)
     WORK_AREAS = [
     ('EL', 'Electrical Services'),
@@ -40,4 +41,4 @@ class WorkerStat(models.Model):
     certificate_image = models.ImageField(upload_to="media/" ,default="")
 
     def __str__(self):
-        return self.worker_email_
+        return self.worker_email 
