@@ -2,8 +2,9 @@ from django.shortcuts import render, HttpResponse , redirect ,get_object_or_404
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login 
-import uuid
+from django.contrib.auth import authenticate , login
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 def singup_page(request):
     if request.method == "POST":
@@ -13,13 +14,13 @@ def singup_page(request):
         password = request.POST.get("password")
         username = request.POST.get("username")
         if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists. Please choose a different username.")
+            messages.warning(request, "Username already exists. Please choose a different username.")
         else:
             # If the username is unique, create and save the user
             user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
             user.save()
             messages.success(request, "You have successfully created an account.")
-    return render(request , 'register.html')
+    return render(request , 'signup-login.html')
 
 def login_page(request):
       if request.method == "POST":
@@ -28,11 +29,11 @@ def login_page(request):
         print(user_name,pass1)
         user=authenticate(request,username=user_name,password=pass1)
         if user is not None :
-            auth_login(request, user)
+            login(request,user)
             return render(request,'home.html')
         else:
             messages.warning(request, "Username or Password is wrong")
-      return render(request , 'login.html')
+      return render(request , 'login-signup.html')
 
 def home_page(request):
     return render(request,'home.html')
@@ -41,9 +42,7 @@ def home_page(request):
 
 from home.models import Request
 from django.views.generic import ListView
-# Create your views here.
-def home(request):
-    return render(request , 'home.html')
+
 def request(request):
     if request.method=="POST":
         
