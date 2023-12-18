@@ -12,13 +12,13 @@ def singup_page(request):
         password = request.POST.get("password")
         username = request.POST.get("username")
         if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists. Please choose a different username.")
+            messages.warning(request, "Username already exists. Please choose a different username.")
         else:
             # If the username is unique, create and save the user
             user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
             user.save()
             messages.success(request, "You have successfully created an account.")
-    return render(request , 'register.html')
+    return render(request , 'signup-login.html')
 
 def login_page(request):
       if request.method == "POST":
@@ -31,7 +31,7 @@ def login_page(request):
             return redirect('/home/')
         else:
             messages.warning(request, "Username or Password is wrong")
-      return render(request , 'login.html')
+      return render(request , 'login-signup.html')
 
 def home_page(request):
     if request.user.is_authenticated:
