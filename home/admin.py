@@ -2,4 +2,9 @@ from django.contrib import admin
 # from home.models import Savedata
 # # Register your models here.
 
-# admin.site.register(Savedata)
+
+
+
+from home.models import Request
+# Register your models here.
+admin.site.register(Request)

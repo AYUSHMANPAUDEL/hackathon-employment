@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Redirect{% endblock title %}
+{% block style %}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #4CAF50;
+}
+
+p {
+    color: #333;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.success-icon {
+    color: #4CAF50;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+{% endblock style %}
+{% block body %}
+<div class="container">
+    <h1>You are not loged in!!</h1>
+    <p>Sign in to continue</p>
+    <button onclick="window.location.href='/login'">Sign in</button>
+</div>
+{% endblock body %}
