@@ -3,6 +3,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login 
+import uuid
 # Create your views here.
 def singup_page(request):
     if request.method == "POST":

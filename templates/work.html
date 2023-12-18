@@ -46,7 +46,7 @@ margin-top: 50px; /* Adjust this margin to leave space for the select container 
 <div id="selectContainer">
     <label for="selectOption">Select Option:</label>
     <select id="selectOption">
-        <option value="All"{% if selected_option == 'All' %}selected{% endif %}>All</option>
+        <option value="All"{% if selected_option == 'All' %}selected{% endif %} >All</option>
         <option value="electric"{% if selected_option == 'electric' %}selected{% endif %}>Electric</option>
         <option value="plumber"{% if selected_option == 'plumber' %}selected{% endif %}>Plumber</option>
         <option value="other"{% if selected_option == 'other' %}selected{% endif %}>Other</option>
