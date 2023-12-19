@@ -1,5 +1,12 @@
 from django.db import models
 from django import forms
+from django.contrib.auth.models import User
+
+class Pofile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    email_token = models.CharField(max_length=200)
+    is_verified = models.BooleanField(default=False)
+
 class WorkerStat(models.Model):
     worker_user_name = models.CharField(max_length=40,default="",unique="True")
     worker_email=models.EmailField(primary_key=True)
@@ -44,7 +51,7 @@ class WorkerStat(models.Model):
         return self.worker_email 
     
 class UserData(models.Model):
-    user_name = models.CharField(max_length=40,default="")
+    user_name = models.CharField(max_length=40,default="",unique=True)
     user_email=models.EmailField(primary_key=True)
     first_name = models.CharField(max_length=20,default="")
     last_name = models.CharField(max_length=20,default="")
